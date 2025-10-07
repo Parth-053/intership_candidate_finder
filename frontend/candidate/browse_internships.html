@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Internships - Candidate Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 260px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            padding: 2rem 0;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-left-color: #3b82f6;
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: #fff;
+            border-left-color: #3b82f6;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .mobile-header {
+            display: none;
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            margin: -2rem -2rem 2rem;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .filters-container {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+        }
+
+        .clear-filters-btn {
+            padding: 0.75rem 1.5rem;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .clear-filters-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-count {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .internships-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .internship-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+        }
+
+        .internship-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .card-title-section {
+            flex: 1;
+        }
+
+        .internship-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .company-name {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tag {
+            padding: 0.375rem 0.75rem;
+            background: #f1f5f9;
+            color: #475569;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .card-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .detail-icon {
+            width: 16px;
+            height: 16px;
+            color: #667eea;
+        }
+
+        .stipend {
+            font-weight: 700;
+            color: #10b981;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .apply-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .apply-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .apply-btn:disabled {
+            background: #10b981;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .load-more-container {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .load-more-btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .load-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .load-more-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-results-text {
+            color: #64748b;
+            font-size: 1.125rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .internships-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <img src="image.png" alt="Career Connect Logo" class="logo">
+            </a>
+        </div>
+        <nav style="margin-top: 2rem;">
+            <a href="profile.html" class="nav-item">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+                <span>Profile</span>
+            </a>
+            <a href="browse_internships.html" class="nav-item active">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <span>Browse Internships</span>
+            </a>
+            <a href="applications.html" class="nav-item">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                <span>My Applications</span>
+            </a>
+            <a href="messages.html" class="nav-item">
+                <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                </svg>
+                <span>Messages</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <button class="menu-btn" id="menuBtn">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+            <div style="font-weight: 700; color: #1e293b;">CareerHub</div>
+            <div style="width: 24px;"></div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Browse Internships 🔍</h1>
+            <p class="page-subtitle">Find your perfect internship opportunity</p>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-container">
+            <div class="search-wrapper">
+                <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-box" 
+                    placeholder="Search by internship title or company..."
+                >
+            </div>
+
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Skill</label>
+                    <select id="skillFilter" class="filter-select">
+                        <option value="">All Skills</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="React">React</option>
+                        <option value="Node.js">Node.js</option>
+                        <option value="Java">Java</option>
+                        <option value="Design">Design</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Data Science">Data Science</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Location</label>
+                    <select id="locationFilter" class="filter-select">
+                        <option value="">All Locations</option>
+                        <option value="Remote">Remote</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Pune">Pune</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Duration</label>
+                    <select id="durationFilter" class="filter-select">
+                        <option value="">All Durations</option>
+                        <option value="2">2 months</option>
+                        <option value="3">3 months</option>
+                        <option value="6">6 months</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Minimum Stipend</label>
+                    <select id="stipendFilter" class="filter-select">
+                        <option value="0">Any Stipend</option>
+                        <option value="10000">₹10,000+</option>
+                        <option value="20000">₹20,000+</option>
+                        <option value="30000">₹30,000+</option>
+                        <option value="40000">₹40,000+</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="clear-filters-btn" id="clearFiltersBtn">Clear All Filters</button>
+        </div>
+
+        <!-- Results Header -->
+        <div class="results-header">
+            <div class="results-count" id="resultsCount">Showing 0 internships</div>
+            <select id="sortSelect" class="sort-select">
+                <option value="recent">Most Recent</option>
+                <option value="stipend-high">Highest Stipend</option>
+                <option value="stipend-low">Lowest Stipend</option>
+                <option value="duration">Duration</option>
+            </select>
+        </div>
+
+        <!-- Internships Grid -->
+        <div class="internships-grid" id="internshipsGrid">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+
+        <!-- No Results State -->
+        <div id="noResults" class="no-results" style="display: none;">
+            <div class="no-results-icon">🔍</div>
+            <p class="no-results-text">No internships found matching your criteria</p>
+            <p style="color: #94a3b8; margin-top: 0.5rem; font-size: 0.95rem;">Try adjusting your filters</p>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+            <button class="load-more-btn" id="loadMoreBtn">Load More Internships</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // MOCK DATA - Replace with backend API later
+        // ============================================
+        const internshipsData = [
+            {
+                id: 1,
+                title: 'Full Stack Developer Intern',
+                company: 'TechCorp',
+                skills: ['JavaScript', 'React', 'Node.js'],
+                location: 'Remote',
+                duration: 6,
+                stipend: 45000,
+                description: 'Work on exciting web applications'
+            },
+            {
+                id: 2,
+                title: 'Frontend Developer Intern',
+                company: 'WebSolutions',
+                skills: ['JavaScript', 'React', 'CSS'],
+                location: 'Mumbai',
+                duration: 3,
+                stipend: 25000,
+                description: 'Build beautiful user interfaces'
+            },
+            {
+                id: 3,
+                title: 'Python Developer Intern',
+                company: 'DataTech',
+                skills: ['Python', 'Django', 'PostgreSQL'],
+                location: 'Bangalore',
+                duration: 6,
+                stipend: 35000,
+                description: 'Develop backend systems'
+            },
+            {
+                id: 4,
+                title: 'UI/UX Design Intern',
+                company: 'DesignHub',
+                skills: ['Design', 'Figma', 'Adobe XD'],
+                location: 'Delhi',
+                duration: 3,
+                stipend: 20000,
+                description: 'Create stunning designs'
+            },
+            {
+                id: 5,
+                title: 'Data Science Intern',
+                company: 'AI Labs',
+                skills: ['Python', 'Data Science', 'Machine Learning'],
+                location: 'Hyderabad',
+                duration: 6,
+                stipend: 50000,
+                description: 'Work with cutting-edge AI'
+            },
+            {
+                id: 6,
+                title: 'Mobile App Developer Intern',
+                company: 'AppMakers',
+                skills: ['React Native', 'JavaScript'],
+                location: 'Pune',
+                duration: 3,
+                stipend: 30000,
+                description: 'Build mobile applications'
+            },
+            {
+                id: 7,
+                title: 'Backend Developer Intern',
+                company: 'CloudTech',
+                skills: ['Node.js', 'MongoDB', 'Express'],
+                location: 'Remote',
+                duration: 6,
+                stipend: 40000,
+                description: 'Develop scalable APIs'
+            },
+            {
+                id: 8,
+                title: 'Digital Marketing Intern',
+                company: 'MarketPro',
+                skills: ['Marketing', 'SEO', 'Social Media'],
+                location: 'Mumbai',
+                duration: 2,
+                stipend: 15000,
+                description: 'Drive digital campaigns'
+            },
+            {
+                id: 9,
+                title: 'Java Developer Intern',
+                company: 'EnterpriseSoft',
+                skills: ['Java', 'Spring Boot', 'SQL'],
+                location: 'Bangalore',
+                duration: 6,
+                stipend: 38000,
+                description: 'Enterprise application development'
+            },
+            {
+                id: 10,
+                title: 'Content Writer Intern',
+                company: 'ContentCo',
+                skills: ['Writing', 'SEO', 'Research'],
+                location: 'Remote',
+                duration: 3,
+                stipend: 12000,
+                description: 'Create engaging content'
+            },
+            {
+                id: 11,
+                title: 'DevOps Intern',
+                company: 'InfraTech',
+                skills: ['Docker', 'Kubernetes', 'AWS'],
+                location: 'Delhi',
+                duration: 6,
+                stipend: 42000,
+                description: 'Manage cloud infrastructure'
+            },
+            {
+                id: 12,
+                title: 'Product Management Intern',
+                company: 'ProductLab',
+                skills: ['Product Management', 'Analytics'],
+                location: 'Mumbai',
+                duration: 3,
+                stipend: 28000,
+                description: 'Shape product strategy'
+            }
+        ];
+
+        // ============================================
+        // STATE MANAGEMENT
+        // ============================================
+        let allInternships = [...internshipsData];
+        let filteredInternships = [...internshipsData];
+        let displayedInternships = [];
+        let itemsPerPage = 6;
+        let currentPage = 1;
+        const appliedInternships = new Set();
+
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
+        const searchInput = document.getElementById('searchInput');
+        const skillFilter = document.getElementById('skillFilter');
+        const locationFilter = document.getElementById('locationFilter');
+        const durationFilter = document.getElementById('durationFilter');
+        const stipendFilter = document.getElementById('stipendFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+        const internshipsGrid = document.getElementById('internshipsGrid');
+        const resultsCount = document.getElementById('resultsCount');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadMoreContainer = document.getElementById('loadMoreContainer');
+        const noResults = document.getElementById('noResults');
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        function getCompanyGradient(index) {
+            const gradients = [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+                'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+                'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+                'linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%)'
+            ];
+            return gradients[index % gradients.length];
+        }
+
+        // ============================================
+        // FILTER & SEARCH LOGIC
+        // ============================================
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const skill = skillFilter.value;
+            const location = locationFilter.value;
+            const duration = durationFilter.value;
+            const minStipend = parseInt(stipendFilter.value) || 0;
+
+            filteredInternships = allInternships.filter(internship => {
+                const matchesSearch = 
+                    internship.title.toLowerCase().includes(searchTerm) ||
+                    internship.company.toLowerCase().includes(searchTerm);
+                
+                const matchesSkill = !skill || internship.skills.includes(skill);
+                const matchesLocation = !location || internship.location === location;
+                const matchesDuration = !duration || internship.duration === parseInt(duration);
+                const matchesStipend = internship.stipend >= minStipend;
+
+                return matchesSearch && matchesSkill && matchesLocation && matchesDuration && matchesStipend;
+            });
+
+            sortInternships();
+            currentPage = 1;
+            renderInternships();
+        }
+
+        // ============================================
+        // SORTING LOGIC
+        // ============================================
+        function sortInternships() {
+            const sortBy = sortSelect.value;
+
+            switch(sortBy) {
+                case 'stipend-high':
+                    filteredInternships.sort((a, b) => b.stipend - a.stipend);
+                    break;
+                case 'stipend-low':
+                    filteredInternships.sort((a, b) => a.stipend - b.stipend);
+                    break;
+                case 'duration':
+                    filteredInternships.sort((a, b) => b.duration - a.duration);
+                    break;
+                case 'recent':
+                default:
+                    filteredInternships.sort((a, b) => b.id - a.id);
+            }
+        }
+
+        // ============================================
+        // RENDER INTERNSHIPS
+        // ============================================
+        function renderInternships() {
+            const startIndex = 0;
+            const endIndex = currentPage * itemsPerPage;
+            displayedInternships = filteredInternships.slice(startIndex, endIndex);
+
+            // Update results count
+            resultsCount.textContent = `Showing ${displayedInternships.length} of ${filteredInternships.length} internships`;
+
+            // Show/hide no results message
+            if (filteredInternships.length === 0) {
+                internshipsGrid.style.display = 'none';
+                loadMoreContainer.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            } else {
+                internshipsGrid.style.display = 'grid';
+                noResults.style.display = 'none';
+            }
+
+            // Render cards
+            internshipsGrid.innerHTML = displayedInternships.map((internship, index) => `
+                <div class="internship-card fade-in" style="animation-delay: ${(index % itemsPerPage) * 0.05}s">
+                    <div class="card-header">
+                        <div class="company-logo" style="background: ${getCompanyGradient(index)}">
+                            ${internship.company.charAt(0)}
+                        </div>
+                        <div class="card-title-section">
+                            <h3 class="internship-title">${internship.title}</h3>
+                            <p class="company-name">${internship.company}</p>
+                        </div>
+                    </div>
+
+                    <div class="skills-container">
+                        ${internship.skills.map(skill => `
+                            <span class="skill-tag">${skill}</span>
+                        `).join('')}
+                    </div>
+
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            ${internship.location}
+                        </div>
+                        <div class="detail-item">
+                            <svg class="detail-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            ${internship.duration} months
+                        </div>
+                    </div>
+
+                    <div class="stipend">₹${internship.stipend.toLocaleString('en-IN')}/month</div>
+
+                    <button 
+                        class="apply-btn" 
+                        data-id="${internship.id}"
+                        ${appliedInternships.has(internship.id) ? 'disabled' : ''}
+                    >
+                        ${appliedInternships.has(internship.id) ? '✓ Applied' : 'Apply Now'}
+                    </button>
+                </div>
+            `).join('');
+
+            // Show/hide load more button
+            if (displayedInternships.length < filteredInternships.length) {
+                loadMoreContainer.style.display = 'block';
+                loadMoreBtn.disabled = false;
+            } else {
+                loadMoreContainer.style.display = 'none';
+            }
+
+            // Add event listeners to apply buttons
+            document.querySelectorAll('.apply-btn').forEach(btn => {
+                btn.addEventListener('click', handleApply);
+            });
+        }
+
+        // ============================================
+        // HANDLE APPLY BUTTON
+        // ============================================
+        function handleApply(e) {
+            const internshipId = parseInt(e.target.dataset.id);
+            const internship = allInternships.find(i => i.id === internshipId);
+            
+            if (!appliedInternships.has(internshipId)) {
+                appliedInternships.add(internshipId);
+                
+                // Update button
+                e.target.textContent = '✓ Applied';
+                e.target.disabled = true;
+                
+                // Show success message
+                // TODO: Replace with proper notification component
+                alert(`Application submitted for ${internship.title} at ${internship.company}!`);
+            }
+        }
+
+        // ============================================
+        // LOAD MORE FUNCTIONALITY
+        // ============================================
+        function loadMore() {
+            currentPage++;
+            renderInternships();
+            
+            // Scroll to first new card
+            const cards = document.querySelectorAll('.internship-card');
+            if (cards.length > itemsPerPage) {
+                cards[displayedInternships.length - itemsPerPage].scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }
+
+        // ============================================
+        // CLEAR FILTERS
+        // ============================================
+        function clearFilters() {
+            searchInput.value = '';
+            skillFilter.value = '';
+            locationFilter.value = '';
+            durationFilter.value = '';
+            stipendFilter.value = '0';
+            sortSelect.value = 'recent';
+            
+            applyFilters();
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        searchInput.addEventListener('input', applyFilters);
+        skillFilter.addEventListener('change', applyFilters);
+        locationFilter.addEventListener('change', applyFilters);
+        durationFilter.addEventListener('change', applyFilters);
+        stipendFilter.addEventListener('change', applyFilters);
+        sortSelect.addEventListener('change', () => {
+            sortInternships();
+            renderInternships();
+        });
+        clearFiltersBtn.addEventListener('click', clearFilters);
+        loadMoreBtn.addEventListener('click', loadMore);
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('visible');
+            overlay.classList.toggle('visible');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('visible');
+            overlay.classList.remove('visible');
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('visible');
+                overlay.classList.remove('visible');
+            }
+        });
+
+        // ============================================
+        // INITIALIZE PAGE
+        // ============================================
+        renderInternships();
+    </script>
+</body>
+</html>
