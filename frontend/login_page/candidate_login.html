@@ -377,7 +377,7 @@
                             if (doc.exists && doc.data().userType === 'candidate') {
                                 showAlert('Login successful! Redirecting...', 'success');
                                 setTimeout(() => {
-                                    window.location.href = 'dashboard.html';
+                                    window.location.href = 'frontend/candidate/dashboard.html';
                                 }, 2000);
                             } else {
                                 // Not a candidate, sign out and show error
@@ -433,7 +433,7 @@
                     auth.currentUser.sendEmailVerification();
                     // Redirect to candidate dashboard
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'frontend/candidate/dashboard.html';
                     }, 3000);
                 })
                 .catch((error) => {
@@ -467,7 +467,7 @@
                 .then(() => {
                     showAlert('Login successful! Redirecting...', 'success');
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'frontend/candidate/dashboard.html';
                     }, 2000);
                 })
                 .catch((error) => {
@@ -498,4 +498,5 @@
         }
     </script>
 </body>
+
 </html>
