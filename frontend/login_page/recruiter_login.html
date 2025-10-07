@@ -444,7 +444,7 @@
                     auth.currentUser.sendEmailVerification();
                     // Redirect to recruiter dashboard
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'frontend/recruiter/recruiter-dashboard.html';
                     }, 3000);
                 })
                 .catch((error) => {
@@ -467,7 +467,7 @@
                     if (doc.exists) {
                         showAlert('Login successful! Redirecting...', 'success');
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html';
+                            window.location.href = 'frontend/recruiter/recruiter-dashboard.html';
                         }, 2000);
                     } else {
                         // User doesn't exist as a recruiter, create a new recruiter record
@@ -482,7 +482,7 @@
                         }).then(() => {
                             showAlert('Account created successfully! Redirecting...', 'success');
                             setTimeout(() => {
-                                window.location.href = 'dashboard.html';
+                                window.location.href = 'frontend/recruiter/recruiter-dashboard.html';
                             }, 2000);
                         });
                     }
@@ -515,4 +515,5 @@
         }
     </script>
 </body>
+
 </html>
