@@ -1,0 +1,63 @@
+.profile-section {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    margin-bottom: 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #eee;
+}
+
+.header-info {
+    flex-grow: 1;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.header-info p {
+    margin: 5px 0;
+    color: #555;
+    font-weight: 500;
+}
+
+.header-info span {
+    color: #777;
+    font-size: 14px;
+}
+
+.upload-resume-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upload-resume-btn:hover {
+    background-color: #218838;
+}
+
+.profile-picture.editable {
+    cursor: pointer;
+    border: 3px dashed #007bff;
+}

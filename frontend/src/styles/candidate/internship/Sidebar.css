@@ -1,0 +1,129 @@
+/* --- Main Sidebar Container --- */
+.sidebar {
+  height: 100%; 
+  width: 280px; 
+  background-color: #465def;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease-in-out;
+  color: white;
+}
+
+
+.sidebar.collapsed {
+  width: 80px; 
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0; 
+  color: white;
+}
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+}
+
+
+.filter-nav {
+  flex-grow: 1; 
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.filter-nav ul {
+  list-style: none;
+  padding: 15px 0;
+  margin: 0;
+}
+
+
+.sidebar-title {
+  margin: 0;
+  font-size: 22px;
+  color: #d4d4d4;
+}
+
+.toggle-btn {
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #465def;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 3px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  cursor: pointer;
+  transition: width 0.5s ease-in-out;
+  white-space: nowrap;
+}
+
+.sidebar.collapsed .filter-item {
+  justify-content: center;
+  padding: 15px 10px;
+}
+
+.filter-item:hover {
+  background-color: #143c8c;
+  color: #ffffff;
+}
+
+.filter-item.active {
+  background-color: #b8b8b8;
+  font-weight: 600;
+  color: hwb(232 7% 26%);
+}
+
+.filter-icon {
+  font-size: 24px;
+  width: 30px;
+  text-align: center;
+}
+
+.filter-name {
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.sidebar.collapsed .filter-name {
+  opacity: 0;
+  display: none;
+}
+
+/* ✅ UPDATED FOR SCROLLING */
+.filter-options {
+  background-color: #f9f9f9;
+  padding: 15px 25px 15px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 220px; /* Adjust this height as needed */
+  overflow-y: auto; /* Adds a scrollbar when content exceeds max-height */
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  color: #555;
+  cursor: pointer;
+}
+
+.option-label input {
+  margin-right: 12px;
+}

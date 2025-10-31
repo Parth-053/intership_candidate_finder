@@ -1,0 +1,101 @@
+/* --- General Page Layout (Inherited from DashboardPage.css potentially) --- */
+.recruiter-page {
+    background-color: #f9fafb;
+    min-height: 100vh;
+}
+
+.recruiter-page-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* --- Applicants Page Specific --- */
+.applicants-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.applicants-page h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #333;
+}
+
+/* Add styles for filters if you implement them later */
+.applicants-page .filters {
+    display: flex;
+    gap: 15px;
+}
+.applicants-page .filters select,
+.applicants-page .filters input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* --- Table Container --- */
+.applicants-table-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    overflow-x: auto; /* Important for responsiveness */
+}
+
+.applicants-table {
+    width: 100%;
+    border-collapse: collapse; /* Removes gaps between cells */
+}
+
+.applicants-table th,
+.applicants-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle; /* Aligns content vertically */
+    white-space: nowrap; /* Prevents text wrapping in cells initially */
+}
+.applicants-table td:first-child, /* Allow name to wrap if needed */
+.applicants-table th:first-child {
+    white-space: normal;
+}
+
+
+.applicants-table th {
+    background-color: #f9fafb; /* Light header background */
+    color: #555;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase; /* Optional: Make headers uppercase */
+    letter-spacing: 0.5px; /* Optional: Add slight spacing */
+}
+
+.empty-state { /* Style for no applicants found */
+  color: #777;
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .applicants-page h1 {
+        font-size: 24px;
+    }
+     .applicants-table th,
+    .applicants-table td {
+        padding: 12px 10px; /* Reduce padding */
+        font-size: 13px;
+    }
+     .applicants-table th:nth-child(2), /* Hide 'Applied For' on small screens */
+    .applicants-table td:nth-child(2) {
+        display: none;
+    }
+}

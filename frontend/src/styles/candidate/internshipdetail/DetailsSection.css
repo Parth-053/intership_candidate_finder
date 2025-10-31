@@ -1,0 +1,58 @@
+.details-section-wrapper {
+  padding: 25px;
+}
+
+.detail-block {
+  margin-bottom: 30px;
+}
+
+.detail-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+  border-left: 4px solid #e10098;
+  padding-left: 10px;
+}
+
+.company-description, .detail-list {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.detail-list {
+  padding-left: 20px;
+}
+
+.detail-list li {
+  margin-bottom: 8px;
+}
+
+/* Additional Information Grid */
+.additional-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.info-card {
+  background-color: #f7f9fc;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.info-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.info-card p {
+  font-size: 15px;
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}

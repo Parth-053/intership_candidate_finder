@@ -1,0 +1,53 @@
+/* Uses styles from AppliedInternships.css */
+
+.notification-list.modern {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item.modern {
+  padding: 15px 10px; /* Adjust padding */
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  display: flex; /* Use flexbox */
+  align-items: flex-start; /* Align items to the top */
+  gap: 10px; /* Gap between indicator and content */
+}
+.notification-item.modern:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc; /* Default for read */
+  flex-shrink: 0;
+  margin-top: 5px; /* Align with first line of text */
+}
+.status-indicator.unread {
+  background-color: #465def; /* Blue for unread */
+}
+
+
+.notif-content {
+  flex-grow: 1;
+}
+
+.notif-text {
+  margin: 0 0 5px 0;
+  color: #555;
+  line-height: 1.5;
+  font-size: 14px;
+}
+.notification-item.unread .notif-text {
+  font-weight: 600;
+   color: #333;
+}
+
+.notif-time {
+  font-size: 12px;
+  color: #999;
+}

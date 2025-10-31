@@ -1,0 +1,65 @@
+.profile-sidebar {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    height: fit-content;
+}
+
+.profile-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-sidebar li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 5px;
+}
+
+.profile-sidebar li a .icon {
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+.profile-sidebar li.active a,
+.profile-sidebar li a:hover {
+    background-color: #fde7f5;
+    color: #e10098;
+}
+
+.logout-section {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 5px;
+}
+.logout-btn {
+    
+    background-color: #ffffff;
+    color: #555;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.logout-btn:hover {
+    background-color: #fde7f5;
+    color: #e10098;
+}
+.logout-btn .icon {
+    margin-right: 12px;
+    font-size: 18px;
+}

@@ -1,0 +1,55 @@
+.internship-detail-page {
+  background-color: #f7f9fc;
+  min-height: 100vh;
+  padding: 30px 0;
+}
+
+/* ✅ FIX: Styles for the new back button */
+.back-button-container {
+  max-width: 1200px;
+  margin: 0 auto 20px auto; /* Centers the container and adds space below */
+  padding: 0 10px; /* Aligns with the main container's side spacing */
+}
+
+.back-button {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.back-button:hover {
+  background-color: #f7f9fc;
+  border-color: #ccc;
+}
+/* End of new styles */
+
+.detail-layout-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.scrollable-content {
+  flex-basis: 70%;
+  max-width: 70%;
+}
+
+.sticky-sidebar {
+  flex-basis: 30%;
+  max-width: 30%;
+  position: sticky;
+  top: 20px;
+}

@@ -1,0 +1,101 @@
+.profile-page {
+    background-color: #f4f7f9;
+    min-height: 100vh;
+}
+
+.top-navbar-sticky-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000; 
+  background-color: white; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.profile-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.profile-sidebar-wrapper {
+    flex: 0 0 300px; /* Sidebar width fixed at 300px */
+    position: sticky;
+    top: 100px; /* Adjust based on your TopNavbar height */
+}
+
+.profile-main-content {
+    flex: 1; /* Main content takes the rest of the space */
+}
+
+/* Common Styles for all profile sections */
+.profile-section {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 20px 0;
+    padding-left: 15px;
+    border-left: 4px solid #e10098;
+}
+
+.list-item {
+    position: relative;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.list-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+
+.list-item h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.list-item p {
+    margin: 0 0 5px 0;
+    color: #555;
+}
+
+.list-item span {
+    font-size: 14px;
+    color: #777;
+}
+
+.item-description {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.item-actions {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit, .btn-delete, .btn-add {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-edit:hover, .btn-delete:hover, .btn-add:hover {
+    background-color: #e0e0e0;
+}

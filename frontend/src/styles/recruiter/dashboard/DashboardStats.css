@@ -1,0 +1,26 @@
+.recruiter-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.stat-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+.stat-label {
+    margin: 0 0 10px 0;
+    color: #777;
+    font-weight: 500;
+}
+.stat-value {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff7e5f;
+}
+.stat-note {
+    font-size: 12px;
+    color: #999;
+}

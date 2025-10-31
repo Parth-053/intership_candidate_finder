@@ -1,0 +1,106 @@
+.dashboard-section.modern {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  border: 1px solid #e8e8e8;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.dashboard-section .section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  border: none; /* Remove border from title itself */
+}
+
+.application-list.modern {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.application-item.modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.application-item.modern:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.app-main-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+}
+
+.app-main-info p {
+  margin: 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.app-status-badge {
+  padding: 6px 12px 6px 10px; /* Space for dot */
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  display: inline-flex; /* Align dot and text */
+  align-items: center;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+/* Status Colors */
+.status-applied { background-color: #e3f2fd; color: #1565c0; }
+.status-applied .status-dot { background-color: #1565c0; }
+
+.status-under-review { background-color: #fff3e0; color: #ef6c00; }
+.status-under-review .status-dot { background-color: #ef6c00; }
+
+.status-interview-scheduled { background-color: #e8f5e9; color: #2e7d32; }
+.status-interview-scheduled .status-dot { background-color: #2e7d32; }
+
+.status-not-selected { background-color: #ffebee; color: #c62828; }
+.status-not-selected .status-dot { background-color: #c62828; }
+
+.view-all-link {
+  color: #465def;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+}
+.view-all-link:hover {
+  text-decoration: underline;
+}
+
+.empty-state {
+  color: #777;
+  text-align: center;
+  padding: 20px;
+}

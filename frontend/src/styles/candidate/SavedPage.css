@@ -1,0 +1,80 @@
+.saved-page {
+  background-color: #f4f7f9;
+  min-height: 100vh;
+}
+
+.saved-content-container {
+  max-width: 1200px;
+  margin: 0 auto; /* Margin top hata diya */
+  padding: 30px 20px; /* Thoda padding badhaya */
+}
+
+/* ✅ Back Button Styles */
+.back-button-area {
+  margin-bottom: 25px; /* Button aur heading ke beech space */
+}
+
+.back-btn {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  display: inline-flex; /* Icon aur text ko align karne ke liye */
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.back-btn:hover {
+  background-color: #f1f1f1;
+  border-color: #ccc;
+}
+/* End Back Button Styles */
+
+
+.saved-content-container h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.saved-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 25px;
+}
+
+.no-saved-message {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+  margin-top: 50px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .saved-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .saved-grid-container {
+    grid-template-columns: 1fr;
+  }
+   .saved-content-container {
+    padding-top: 20px;
+  }
+  .saved-content-container h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}

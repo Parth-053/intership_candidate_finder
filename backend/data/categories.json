@@ -1,0 +1,19 @@
+[
+  { "title": "Web Development", "image": "/icons/web.png" },
+  { "title": "Graphic Design", "image": "/icons/design.png" },
+  { "title": "Data Science", "image": "/icons/data.png" },
+  { "title": "Marketing", "image": "/icons/marketing.png" },
+  { "title": "UI/UX Design", "image": "/icons/uiux.png" },
+  { "title": "Content Writing", "image": "/icons/content.png" },
+  { "title": "Mobile App Development", "image": "/icons/mobile.png" },
+  { "title": "Digital Marketing", "image": "/icons/digital.png" },
+  { "title": "Photography", "image": "/icons/photography.png" },
+  { "title": "Video Editing", "image": "/icons/video.png" },
+  { "title": "Animation", "image": "/icons/animation.png" },
+  { "title": "Cyber Security", "image": "/icons/security.png" },
+  { "title": "AI & Machine Learning", "image": "/icons/ai.png" },
+  { "title": "Blockchain", "image": "/icons/blockchain.png" },
+  { "title": "Cloud Computing", "image": "/icons/cloud.png" },
+  { "title": "DevOps", "image": "/icons/devops.png" },
+  { "title": "Default", "image": "/icons/default.png" } 
+]

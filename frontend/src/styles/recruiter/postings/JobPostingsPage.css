@@ -1,0 +1,73 @@
+/* --- General Page Layout --- */
+.recruiter-page {
+    background-color: #f9fafb;
+    min-height: 100vh;
+}
+
+.recruiter-page-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* --- Job Postings Page Specific --- */
+.job-postings-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px; /* Increased space */
+    padding-bottom: 15px; /* Add padding below */
+    border-bottom: 1px solid #e0e0e0; /* Add a separator line */
+}
+
+.job-postings-page h1 {
+    margin: 0;
+    font-size: 28px; /* Slightly larger */
+    color: #333;
+}
+
+.create-job-btn {
+    background-color: #ff7e5f; /* Recruiter theme color */
+    color: white;
+    border: none;
+    padding: 12px 25px; /* Larger button */
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px; /* Slightly larger text */
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.create-job-btn:hover {
+    background-color: #e66a4f; /* Darker shade on hover */
+    transform: translateY(-1px); /* Slight lift effect */
+}
+
+.postings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Increased gap between cards */
+}
+
+.empty-state { /* Style for no postings */
+  color: #777;
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+    .job-postings-page .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+     .job-postings-page h1 {
+        font-size: 24px;
+    }
+    .create-job-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}

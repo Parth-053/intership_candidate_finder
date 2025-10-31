@@ -1,0 +1,35 @@
+/* Internship cards ka grid container */
+.internships-grid-container {
+  display: grid;
+  gap: 15px; 
+  padding: 20px;
+  padding-top: 0;
+}
+
+/* Default State: Jab sidebar khula ho (3 Columns) */
+.internships-grid-container.three-columns {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Sidebar Collapsed State: Jab sidebar chhota ho (4 Columns) */
+.internships-grid-container.four-columns {
+  /* Ismein hum minimum width ko thoda kam kar dete hain taaki 4 card aaram se fit ho sakein */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+
+/* --- Responsive Design --- */
+
+/* Medium screens (e.g., tablets) par hamesha 2 columns */
+@media (max-width: 1200px) {
+  .internships-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small screens (e.g., mobile) par hamesha 1 column */
+@media (max-width: 768px) {
+  .internships-grid-container {
+    grid-template-columns: 1fr;
+  }
+}

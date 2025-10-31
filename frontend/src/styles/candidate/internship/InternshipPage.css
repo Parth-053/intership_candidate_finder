@@ -1,0 +1,58 @@
+/* --- Main Page Container --- */
+.internship-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Poori screen ki height lein */
+  overflow: hidden; /* Sabse zaroori: Is container ko scroll hone se rokein */
+}
+
+/* --- Top Navbar --- */
+.top-navbar-sticky-container {
+  flex-shrink: 0; /* Isse navbar sikudega nahi */
+  position: sticky;
+  top: 0;
+  z-index: 1000; 
+  background-color: white; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Main Layout (Sidebar + Content) --- */
+.internship-layout-container {
+  display: flex;
+  flex-grow: 1; /* Navbar ke neeche ki saari jagah lein */
+  width: 100%;
+  overflow: hidden; /* Yeh bhi scroll nahi hoga */
+}
+
+/* --- Sidebar Panel --- */
+.left-panel {
+  flex-shrink: 0; 
+  height: 100%;
+  /* Sidebar ki apni scrolling uske component CSS se handle hogi */
+}
+
+/* --- Right Content Panel --- */
+.right-panel {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* Yeh panel bhi scroll nahi hoga */
+  margin-left: 10px;
+}
+
+/* --- Search Bar --- */
+.search-bar-container {
+  flex-shrink: 0; 
+  background-color: #ffffff;
+  z-index: 10;
+  padding: 8px 0px 8px 75px;
+}
+
+/* --- Asli Content Area (YAHAN SCROLL HOGA) --- */
+.content-area {
+  flex-grow: 1; 
+  overflow-y: auto; /* Sirf yeh area scroll hoga */
+  background-color: #f7f9fc;
+  padding-left: 75px; /* Padding yahan add karein */
+}

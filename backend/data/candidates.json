@@ -1,0 +1,193 @@
+[
+  {
+    "id": "1",
+    "name": "Rahul Verma",
+    "email": "rahul.verma@example.com",
+    "password": "rahul@123",
+    "role": "candidate",
+    "createdAt": "2025-10-27T10:10:01.000Z",
+    "headline": "Aspiring Web Developer | MERN Stack Enthusiast",
+    "location": "Delhi, India",
+    "skills": [
+      {
+        "name": "React",
+        "color": "blue"
+      },
+      {
+        "name": "Node.js",
+        "color": "green"
+      },
+      {
+        "name": "MongoDB",
+        "color": "orange"
+      }
+    ],
+    "savedInternships": [
+      164,
+      97
+    ],
+    "profile": {
+      "resumeUrl": "/resumes/rahul_verma.pdf"
+    },
+    "linkedin": "",
+    "github": ""
+  },
+  {
+    "id": "2",
+    "name": "Ananya Sharma",
+    "email": "ananya.sharma@example.com",
+    "password": "sharma@123",
+    "role": "candidate",
+    "createdAt": "2025-10-27T10:10:02.000Z",
+    "headline": "Data Science Intern | Python & ML",
+    "location": "Mumbai, India",
+    "skills": [
+      {
+        "name": "Python",
+        "color": "blue"
+      },
+      {
+        "name": "Machine Learning",
+        "color": "purple"
+      },
+      {
+        "name": "SQL",
+        "color": "red"
+      },
+      {
+        "name": "Pandas",
+        "color": "grey"
+      }
+    ],
+    "savedInternships": [
+      3,
+      8,
+      37
+    ],
+    "profile": {
+      "resumeUrl": ""
+    }
+  },
+  {
+    "id": "3",
+    "name": "Vikram Singh",
+    "email": "vikram.singh@example.com",
+    "password": "vikram@123",
+    "role": "candidate",
+    "createdAt": "2025-10-27T10:10:03.000Z",
+    "headline": "Graphic Design Student looking for opportunities",
+    "location": "Bangalore, India",
+    "skills": [
+      {
+        "name": "Figma",
+        "color": "pink"
+      },
+      {
+        "name": "Adobe Illustrator",
+        "color": "orange"
+      },
+      {
+        "name": "UI Design",
+        "color": "teal"
+      }
+    ],
+    "savedInternships": [
+      2,
+      7,
+      35
+    ],
+    "profile": {
+      "resumeUrl": "/resumes/vikram_singh.pdf"
+    }
+  },
+  {
+    "id": "4",
+    "name": "Pooja Gupta",
+    "email": "pooja.gupta@example.com",
+    "password": "pooja@123",
+    "role": "candidate",
+    "createdAt": "2025-10-27T10:10:04.000Z",
+    "headline": "Marketing Intern | Social Media & Content Creation",
+    "location": "Pune, India",
+    "skills": [
+      {
+        "name": "Social Media Marketing",
+        "color": "blue"
+      },
+      {
+        "name": "Content Writing",
+        "color": "green"
+      },
+      {
+        "name": "SEO Basics",
+        "color": "yellow"
+      }
+    ],
+    "savedInternships": [
+      6,
+      11
+    ],
+    "profile": {
+      "resumeUrl": ""
+    }
+  },
+  {
+    "id": "5",
+    "name": "Amit Kumar",
+    "email": "amit.kumar@example.com",
+    "password": "amit@123",
+    "role": "candidate",
+    "createdAt": "2025-10-27T10:10:05.000Z",
+    "headline": "Backend Developer Intern | Java & Spring Boot",
+    "location": "Hyderabad, India",
+    "skills": [
+      {
+        "name": "Java",
+        "color": "red"
+      },
+      {
+        "name": "Spring Boot",
+        "color": "green"
+      },
+      {
+        "name": "MySQL",
+        "color": "orange"
+      },
+      {
+        "name": "Git",
+        "color": "grey"
+      }
+    ],
+    "savedInternships": [
+      4,
+      13
+    ],
+    "profile": {
+      "resumeUrl": "/resumes/amit_kumar.pdf"
+    }
+  },
+  {
+    "id": "6",
+    "name": "Sneha Reddy",
+    "email": "sneha.reddy@example.com",
+    "password": "sneha@123",
+    "role": "candidate",
+    "createdAt": "2025-10-27T10:10:06.000Z",
+    "headline": "Computer Science Student",
+    "location": "Chennai, India",
+    "skills": [
+      {
+        "name": "C++",
+        "color": "blue"
+      },
+      {
+        "name": "Data Structures",
+        "color": "purple"
+      }
+    ],
+    "savedInternships": [],
+    "profile": {
+      "resumeUrl": ""
+    }
+  }
+]

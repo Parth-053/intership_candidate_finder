@@ -1,0 +1,61 @@
+/* Uses styles from AppliedInternships.css like .dashboard-section, .section-header, .section-title, .view-all-link, .empty-state */
+
+.saved-list.modern {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.saved-item.modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.saved-item.modern:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.saved-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+}
+
+.saved-info p {
+  margin: 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.saved-actions button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid;
+  background-color: transparent; /* Changed background */
+  cursor: pointer;
+  font-weight: 600; /* Bolder */
+  font-size: 13px;
+  margin-left: 10px;
+  transition: all 0.2s;
+}
+
+.saved-actions .view-btn {
+  border-color: #465def;
+  color: #465def;
+}
+.saved-actions .view-btn:hover {
+  background-color: #e6ecff;
+}
+
+.saved-actions .remove-btn {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+.saved-actions .remove-btn:hover {
+  background-color: #fbe9e7;
+}

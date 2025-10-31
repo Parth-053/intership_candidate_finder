@@ -1,0 +1,111 @@
+.dashboard-sidebar {
+  width: 260px;
+  background-color: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+.sidebar-profile-section {
+  padding: 25px 20px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebar-profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid #eee;
+}
+
+.sidebar-user-name {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sidebar-user-email {
+  margin: 0;
+  font-size: 13px;
+  color: #777;
+}
+
+
+.sidebar-nav {
+  flex-grow: 1;
+  padding: 15px 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li {
+  margin: 0 15px 5px 15px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-link .icon {
+  margin-right: 15px;
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar-link .link-text {
+  font-size: 15px;
+}
+
+.sidebar-link:hover {
+  background-color: #f4f7f9;
+  color: #333;
+}
+
+.sidebar-link.active {
+  background-color: #e6ecff;
+  color: #465def;
+}
+
+.sidebar-logout {
+  padding: 20px;
+  border-top: 1px solid #eee;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #fbe9e7; /* Light red */
+    color: #d32f2f; /* Dark red */
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #ffccbc;
+    color: #c62828;
+}

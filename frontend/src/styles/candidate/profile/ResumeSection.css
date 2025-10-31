@@ -1,0 +1,34 @@
+/* General section styles will be in ProfilePage.css */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.info-row:last-child {
+    border-bottom: none;
+}
+.info-row span {
+    color: #555;
+    font-weight: 500;
+}
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+.btn-download {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.btn-icon {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}

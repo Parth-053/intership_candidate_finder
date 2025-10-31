@@ -1,0 +1,19 @@
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+.skill-tag {
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.red { background-color: #ffebee; color: #c62828; }
+.blue { background-color: #e3f2fd; color: #1565c0; }
+.green { background-color: #e8f5e9; color: #2e7d32; }
+.orange { background-color: #fff3e0; color: #ef6c00; }
+.grey { background-color: #f5f5f5; color: #424242; }
+
+/* .btn-add styles are provided in ProfilePage.css; no local overrides required here */

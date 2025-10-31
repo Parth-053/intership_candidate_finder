@@ -1,0 +1,88 @@
+.profile-summary.enhanced {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  gap: 25px;
+  border: 1px solid #e0e0e0;
+}
+
+.summary-profile-pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.summary-info {
+  flex-grow: 1; /* Takes up available space */
+}
+
+.summary-info h2 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+.summary-info p {
+  margin: 0 0 15px 0; /* More space below headline */
+  color: #666;
+  font-size: 15px;
+}
+
+.completion-status {
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+.completion-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
+  font-weight: 500;
+}
+
+.completion-status progress {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.completion-status progress::-webkit-progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+.completion-status progress::-webkit-progress-value {
+  background-color: #465def;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+.completion-status progress::-moz-progress-bar {
+  background-color: #465def;
+  border-radius: 4px;
+   transition: width 0.3s ease;
+}
+
+.edit-profile-button {
+  background-color: #e6ecff;
+  color: #465def;
+  border: 1px solid #c8d3fa;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  white-space: nowrap; /* Prevent button text wrapping */
+  transition: background-color 0.2s ease;
+}
+
+.edit-profile-button:hover {
+  background-color: #d9e1ff;
+}

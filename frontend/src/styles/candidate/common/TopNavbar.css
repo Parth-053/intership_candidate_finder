@@ -1,0 +1,90 @@
+/* --- Main Navbar Container --- */
+.top-navbar {
+  width: 100%;
+  height: 65px; /* Fixed height for consistency */
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* UPDATED: Left padding kam kar diya gaya hai */
+  padding: 0 5% 0 10px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+}
+
+/* --- Logo and Brand Name (Left Side) --- */
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  height: 100%;
+  margin-left: 0;
+}
+
+/* UPDATED: Logo ka size badha diya gaya hai */
+.logo {
+  width: 60px;
+  height: 100%;
+  margin-left: 0;
+  margin-right: 20px; /* Thoda zyada margin */
+  object-fit: contain; /* Ensures logo is not stretched */
+}
+
+/* UPDATED: Brand name ka font size badha diya gaya hai */
+.brand-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+/* --- Menu Items (Right Side) --- */
+.menu-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.top-menu-item {
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.top-menu-item:hover {
+  background-color: #f0f4f8;
+  color: #465def;
+}
+
+.top-menu-item.active {
+  background-color: #465def;
+  color: #ffffff;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+  .brand-name {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-navbar {
+    padding: 0 20px;
+  }
+  .top-menu-item {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  .menu-container {
+    gap: 8px;
+  }
+}
+

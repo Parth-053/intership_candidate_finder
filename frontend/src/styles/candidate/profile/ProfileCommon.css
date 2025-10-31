@@ -1,0 +1,328 @@
+/* src/styles/candidate/profile/ProfileCommon.css */
+
+/* --- General Section Styling --- */
+.profile-section {
+  background-color: #ffffff; /* White background for sections */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px 25px; /* Padding inside section */
+  margin-bottom: 25px; /* Space between sections */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  border: 1px solid #e0e0e0; /* Light border */
+}
+
+/* --- Section Header --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Space below header */
+  padding-bottom: 10px; /* Space below title */
+  border-bottom: 1px solid #eee; /* Separator line */
+}
+
+.section-title {
+  font-size: 1.3em; /* Larger title */
+  font-weight: 600;
+  color: #333;
+  margin: 0; /* Remove default margin */
+}
+
+/* --- Buttons in Header (Add New / Edit Section) --- */
+.btn-add,
+.btn-edit-section {
+  background-color: #f0f0f0; /* Light grey background */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-add:hover,
+.btn-edit-section:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add:disabled,
+.btn-edit-section:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+/* --- Displaying Information (Non-Editing Mode) --- */
+.display-info {
+  margin-top: 15px;
+}
+
+.info-row {
+  margin-bottom: 10px;
+  font-size: 0.95em;
+  color: #555;
+  display: flex;
+  justify-content: space-between; /* Align actions to the right if needed */
+  align-items: center;
+  flex-wrap: wrap; /* Wrap if space is limited */
+  gap: 10px; /* Space between info and buttons */
+}
+
+.info-row span:first-child {
+    font-weight: 500; /* Slightly bolder label part */
+    color: #444;
+}
+
+.info-row a {
+    color: #007bff;
+    text-decoration: none;
+    word-break: break-all; /* Prevent long URLs from overflowing */
+}
+.info-row a:hover {
+    text-decoration: underline;
+}
+
+
+/* --- Editing Form --- */
+.edit-form {
+  margin-top: 15px;
+  border-top: 1px dashed #eee; /* Separator for edit form */
+  padding-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  font-size: 0.9em;
+  color: #444;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95em;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: #aaa;
+}
+
+textarea.form-input {
+    min-height: 80px; /* Adjust as needed */
+    resize: vertical;
+}
+
+/* --- Form Action Buttons (Save / Cancel) --- */
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.btn-save,
+.btn-cancel {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  border: none;
+}
+
+.btn-save {
+  background-color: #007bff; /* Blue */
+  color: white;
+  border: 1px solid #007bff;
+}
+
+.btn-save:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-cancel {
+  background-color: #f8f9fa; /* Light grey */
+  color: #6c757d; /* Dark grey text */
+  border: 1px solid #ccc;
+}
+
+.btn-cancel:hover {
+  background-color: #e2e6ea;
+  border-color: #bbb;
+}
+
+.btn-save:disabled,
+.btn-cancel:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- List Display (for Education, Experience etc.) --- */
+.list-container {
+  margin-top: 15px;
+}
+
+.list-item {
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  position: relative; /* For positioning action buttons */
+  background-color: #fdfdfd;
+}
+
+.list-item h4 {
+  margin: 0 0 5px 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.list-item p {
+  margin: 0 0 8px 0;
+  font-size: 0.95em;
+  color: #666;
+}
+
+.list-item span {
+    font-size: 0.9em;
+    color: #888;
+}
+
+.item-description {
+  font-style: italic;
+  color: #777;
+  margin-top: 8px !important;
+}
+
+/* --- Item Action Buttons (Edit / Delete within a list item) --- */
+.item-actions {
+  /* Position top-right, or display inline */
+  /* Example: Position top-right */
+  /* position: absolute;
+  top: 10px;
+  right: 10px; */
+
+  /* Example: Display at the bottom */
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit,
+.btn-delete {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  font-size: 0.85em;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-edit {
+  color: #007bff; /* Blue */
+  border: 1px solid #007bff;
+}
+.btn-edit:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.btn-delete {
+  color: #dc3545; /* Red */
+  border: 1px solid #dc3545;
+}
+.btn-delete:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.btn-edit:disabled,
+.btn-delete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- Empty State --- */
+.empty-state {
+  color: #888;
+  font-style: italic;
+  margin-top: 15px;
+  text-align: center;
+  padding: 20px;
+  border: 1px dashed #ddd;
+  border-radius: 6px;
+}
+
+/* --- Error Message --- */
+.error-message {
+    color: #dc3545; /* Red */
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* --- Button Shared styles (Download, Upload etc.) --- */
+.btn-download,
+.btn-upload {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #555;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none; /* For download link styled as button */
+    display: inline-block; /* For download link */
+    margin-left: 10px; /* Space from text */
+}
+
+.btn-download:hover,
+.btn-upload:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-download:disabled,
+.btn-upload:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1.1em; /* Adjust icon size */
+    color: #666;
+    line-height: 1;
+}
+
+.btn-icon:hover {
+    color: #333;
+}

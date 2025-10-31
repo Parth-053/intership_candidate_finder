@@ -1,0 +1,29 @@
+.footer {
+  width: 100%;
+  background-color: #1e3a8a;
+  color: #fff;
+  text-align: center;
+  padding: 20px 20px; /* horizontal padding adjust */
+  margin-top: 40px;
+  box-sizing: border-box;
+}
+
+.footer-links {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center; /* center align horizontally */
+  gap: 30px; /* spacing between links */
+  flex-wrap: wrap; /* wrap on smaller screens */
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  color: #fbbf24; /* optional hover color for effect */
+}

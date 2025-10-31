@@ -1,0 +1,64 @@
+/* ... (Purane form-group, input, textarea, button styles waise hi rahenge) ... */
+
+/* Locations */
+.location-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.location-input-group input {
+    flex-grow: 1; /* Input zyada jagah le */
+}
+.btn-add-inline {
+    padding: 10px 15px;
+    background-color: #5cb85c; /* Green */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.locations-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.locations-list li {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.btn-remove-inline {
+    background: none;
+    border: none;
+    color: #dc3545; /* Red */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+/* Logo Preview */
+.logo-preview {
+    max-width: 100px;
+    max-height: 100px;
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* Disabled button style */
+.btn-save:disabled, .btn-cancel:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

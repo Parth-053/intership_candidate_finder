@@ -1,0 +1,76 @@
+/* Uses styles from ProfilePage.css like .profile-section, .section-title, etc. */
+
+.education-form {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.education-form h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.form-input { /* Assuming you have this style globally or in ProfilePage.css */
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-save, .btn-cancel, .btn-add, .btn-delete, .btn-edit, .btn-save-section {
+     /* Assuming shared button styles from ProfilePage.css */
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-save { background-color: #28a745; color: white; border: none;}
+.btn-cancel { background-color: #6c757d; color: white; border: none;}
+.btn-add { background-color: #007bff; color: white; border: none;}
+.btn-delete { background-color: #dc3545; color: white; border: none;}
+.btn-edit { background-color: #ffc107; color: #333; border: none;}
+.btn-save-section {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    margin-top: 15px;
+}
+.btn-save-section:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.list-item {
+    position: relative;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.list-item:last-child {
+    border-bottom: none;
+}
+
+.item-actions {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.empty-state {
+    color: #777;
+    font-style: italic;
+}

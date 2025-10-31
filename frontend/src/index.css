@@ -1,0 +1,11 @@
+/* Reset default body/html spacing */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Optional: if you want navbar fixed at top without any scroll */
+body {
+  overflow-x: hidden; /* prevent horizontal scroll */
+}

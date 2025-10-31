@@ -1,0 +1,66 @@
+[
+  {
+    "id": "app_1730000000001",
+    "candidateId": "1",
+    "internshipId": 1,
+    "recruiterId": "1",
+    "status": "Applied",
+    "appliedOn": "2025-10-27T11:00:01.000Z"
+  },
+  {
+    "id": "app_1730000000002",
+    "candidateId": "2",
+    "internshipId": 5,
+    "recruiterId": "2",
+    "status": "Applied",
+    "appliedOn": "2025-10-27T11:05:02.000Z"
+  },
+  {
+    "id": "app_1730000000003",
+    "candidateId": "3",
+    "internshipId": 3,
+    "recruiterId": "3",
+    "status": "Shortlisted",
+    "appliedOn": "2025-10-26T15:30:03.000Z"
+  },
+  {
+    "id": "app_1730000000004",
+    "candidateId": "1",
+    "internshipId": 33,
+    "recruiterId": "2",
+    "status": "Applied",
+    "appliedOn": "2025-10-27T12:15:04.000Z"
+  },
+  {
+    "id": "app_1730000000005",
+    "candidateId": "4",
+    "internshipId": 7,
+    "recruiterId": "1",
+    "status": "Applied",
+    "appliedOn": "2025-10-27T09:00:05.000Z"
+  },
+  {
+    "id": "app_1730000000006",
+    "candidateId": "5",
+    "internshipId": 1,
+    "recruiterId": "1",
+    "status": "Rejected",
+    "appliedOn": "2025-10-25T18:00:06.000Z"
+  },
+  {
+    "id": "app_1730000000007",
+    "candidateId": "2",
+    "internshipId": 37,
+    "recruiterId": "2",
+    "status": "Applied",
+    "appliedOn": "2025-10-27T14:20:07.000Z"
+  },
+  {
+    "id": "app_1730000000008",
+    "candidateId": "6",
+    "internshipId": 1,
+    "recruiterId": "1",
+    "status": "Shortlisted",
+    "appliedOn": "2025-10-27T16:00:08.000Z"
+  }
+]

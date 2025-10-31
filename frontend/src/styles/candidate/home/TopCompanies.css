@@ -1,0 +1,95 @@
+/* TopCompanies.css */
+
+/* मेन सेक्शन कंटेनर साइड पैडिंग के साथ */
+.top-companies {
+  padding: 30px 5%;
+  background-color: #f9f9f9; /* वैकल्पिक: हल्का बैकग्राउंड */
+}
+
+/* टाइटल और "View All" बटन के लिए हेडर */
+.top-companies-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.top-companies-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+/* "View All" बटन की स्टाइल */
+.view-all-btn {
+  background-color: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.view-all-btn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* हॉरिजॉन्टल स्क्रॉलिंग के लिए ग्रिड कंटेनर */
+.companies-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 15px;
+  
+  /* --- स्क्रॉलबार छिपाने के लिए --- */
+  -ms-overflow-style: none; /* IE और Edge के लिए */
+}
+
+.companies-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, और Opera के लिए */
+}
+
+
+/* --- कंपनी कार्ड की स्टाइलिंग --- */
+.company-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  
+  width: 150px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.company-card img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+  object-fit: contain;
+}
+
+.company-card p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}

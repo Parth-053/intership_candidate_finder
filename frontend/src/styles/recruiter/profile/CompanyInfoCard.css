@@ -1,0 +1,126 @@
+/* src/styles/recruiter/profile/CompanyInfoCard.css */
+
+.company-info-card {
+    background-color: #ffffff;
+    padding: 30px 40px; /* Increased padding */
+    border-radius: 12px; /* Consistent rounding */
+    border: 1px solid #e8e8e8; /* Lighter border */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.07); /* Slightly stronger shadow */
+    position: relative; /* Needed for positioning the edit button */
+}
+
+/* --- Header Section --- */
+.info-header {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    gap: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 30px; /* More space below header */
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.company-logo-display {
+    width: 70px; /* Adjusted size */
+    height: 70px;
+    object-fit: contain;
+    border: 1px solid #eee;
+    border-radius: 8px; /* Square rounding */
+    padding: 5px;
+    flex-shrink: 0;
+    background-color: #f8f8f8; /* Light background for logo area */
+}
+
+.info-header h2 {
+    margin: 0;
+    font-size: 26px; /* Slightly larger */
+    color: #333;
+    flex-grow: 1;
+    font-weight: 700;
+}
+
+/* Edit button positioned top-right */
+.edit-profile-btn {
+    position: absolute; /* Position relative to card */
+    top: 25px;
+    right: 30px;
+    background-color: #ffc107; /* Yellow for edit */
+    color: #333; /* Dark text on yellow */
+    border: none;
+    padding: 8px 18px; /* Adjusted padding */
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.edit-profile-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+
+/* --- Body Section (Details) --- */
+.info-body {
+    /* Styles for the main content area */
+    display: block;
+}
+
+.info-body .info-item {
+    display: flex; /* Use flexbox for label-value alignment */
+    align-items: flex-start; /* Align label top */
+    margin-bottom: 18px;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6; /* Better line spacing */
+}
+
+.info-body .info-item strong {
+    color: #333; /* Darker label */
+    font-weight: 600;
+    flex-basis: 150px; /* Fixed width for labels */
+    flex-shrink: 0; /* Prevent label from shrinking */
+    margin-right: 15px; /* Space between label and value */
+}
+
+.info-body .info-item a {
+    color: #ff7e5f; /* Brand color for link */
+    text-decoration: none;
+    word-break: break-all; /* Prevent long URLs from overflowing */
+}
+.info-body .info-item a:hover {
+    text-decoration: underline;
+}
+
+/* Specific styling for Description and Locations */
+.info-item.description strong,
+.info-item.locations strong {
+   display: block; /* Make label appear above */
+   margin-bottom: 8px;
+   flex-basis: auto; /* Remove fixed width for block labels */
+}
+.info-item.description p {
+    margin: 0;
+    color: #666;
+    background-color: #f9f9f9; /* Subtle background */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    width: 100%; /* Take full width below label */
+}
+
+.location-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 5px 0;
+    width: 100%; /* Take full width below label */
+}
+.location-tag {
+    background-color: #fff3e0; /* Light orange */
+    color: #ef6c00; /* Darker orange text */
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #ffe0b2;
+}

@@ -1,0 +1,67 @@
+.applicant-row td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #555;
+}
+
+.applicant-row:last-child td {
+    border-bottom: none;
+}
+
+.applicant-name-pic {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #333;
+}
+/* Uncomment if using profile pictures
+.applicant-name-pic img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+} */
+
+.status-tag {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+/* Define status colors */
+.status-new { background-color: #e3f2fd; color: #1565c0; }
+.status-in-review { background-color: #fff3e0; color: #ef6c00; }
+.status-shortlisted { background-color: #e8f5e9; color: #2e7d32; }
+.status-rejected { background-color: #ffebee; color: #c62828; }
+
+.applicant-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.applicant-actions .action-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.action-btn.view-profile { border-color: #007bff; color: #007bff; }
+.action-btn.view-profile:hover { background-color: #e7f3ff; }
+
+.action-btn.shortlist { border-color: #28a745; color: #28a745; }
+.action-btn.shortlist:hover { background-color: #eaf6ec; }
+
+.action-btn.reject { border-color: #dc3545; color: #dc3545; }
+.action-btn.reject:hover { background-color: #fbe9e7; }

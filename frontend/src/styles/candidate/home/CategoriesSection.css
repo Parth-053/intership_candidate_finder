@@ -1,0 +1,97 @@
+/* CategoriesSection.css */
+
+/* Main section container with side padding */
+.categories-section {
+  padding: 30px 5%; /* Top/bottom 30px, Left/right 5% padding */
+  background-color: #ffffff; /* Or any background color you prefer */
+}
+
+/* Header for "Explore by Category" title and "View All" button */
+.categories-header {
+  display: flex;
+  justify-content: space-between; /* Puts space between title and button */
+  align-items: center;
+  margin-bottom: 25px; /* Space between header and the cards grid */
+}
+
+.categories-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+/* "View All" button styling */
+.view-all-btn {
+  background-color: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.view-all-btn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Grid container for horizontal scrolling */
+.categories-grid {
+  display: flex;
+  flex-wrap: nowrap; /* Prevents cards from wrapping to the next line */
+  overflow-x: auto;  /* Enables horizontal scrolling */
+  gap: 20px;
+  padding-bottom: 15px; /* Adds space so shadows aren't cut off */
+  
+  /* --- HIDE THE SCROLLBAR --- */
+  /* Removed 'scrollbar-width' for better browser compatibility */
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+/* For Chrome, Safari, and Opera */
+.categories-grid::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* --- INDIVIDUAL CATEGORY CARD STYLING --- */
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  flex-shrink: 0; /* Important: Prevents cards from shrinking */
+  width: 140px; 
+  text-align: center;
+}
+
+.category-card:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.category-card img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain; /* 'contain' is often better for icons */
+  margin-bottom: 12px;
+}
+
+.category-card p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  line-height: 1.2;
+}

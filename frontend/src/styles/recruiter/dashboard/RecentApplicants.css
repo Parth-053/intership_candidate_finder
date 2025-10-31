@@ -1,0 +1,47 @@
+.dashboard-section {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+.section-title {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: #333;
+}
+.applicant-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.applicant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.applicant-item:last-child {
+    border-bottom: none;
+}
+.applicant-info h4 {
+    margin: 0 0 5px 0;
+    font-weight: 600;
+}
+.applicant-info p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+}
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.status-new {
+    background-color: #e3f2fd; color: #1565c0;
+}
+.status-in-review {
+    background-color: #fff3e0; color: #ef6c00;
+}

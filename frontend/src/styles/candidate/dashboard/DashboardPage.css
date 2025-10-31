@@ -1,0 +1,64 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f4f7f9;
+}
+
+.dashboard-layout {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.dashboard-main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 30px; /* Increased padding */
+}
+
+/* Updated layout using Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Main column wider than side column */
+  gap: 30px; /* Increased gap */
+  margin-top: 30px;
+  align-items: start; /* Align items to the top of their grid cell */
+}
+
+.main-column, .side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Consistent gap between items in columns */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) { /* Adjust breakpoint if needed */
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Stack columns */
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+     flex-direction: column;
+  }
+  .dashboard-sidebar {
+     width: 100%;
+     height: auto;
+     border-right: none;
+     border-bottom: 1px solid #e0e0e0;
+     box-shadow: none; /* Remove shadow on mobile */
+  }
+  .dashboard-main-content {
+     padding: 20px; /* Reduce padding on smaller screens */
+  }
+   .dashboard-grid {
+    gap: 20px;
+    margin-top: 20px;
+  }
+   .main-column, .side-column {
+    gap: 20px;
+  }
+}

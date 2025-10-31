@@ -1,0 +1,100 @@
+/* src/styles/recruiter/profile/EditCompanyForm.css */
+
+/* .edit-company-form uses .profile-section styles from CompanyProfilePage.css */
+
+/* Specific overrides for .edit-company-form can be added here when needed */
+
+.form-group {
+    margin-bottom: 25px; /* Increased space between form groups */
+}
+
+/* Input, textarea, select styles are mostly from CompanyProfilePage.css */
+
+/* Locations */
+.location-input-group {
+    display: flex;
+    gap: 12px; /* Increased gap */
+    margin-bottom: 15px;
+}
+.location-input-group input {
+    flex-grow: 1; 
+    padding: 10px 12px; /* Consistent padding */
+}
+.btn-add-inline {
+    padding: 10px 18px; /* Consistent padding */
+    background-color: #28a745; /* Green for add */
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.btn-add-inline:hover {
+    background-color: #218838;
+}
+
+.locations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: #fdfdfd;
+}
+.locations-list li {
+    background-color: #e9ecef; /* Light gray background */
+    padding: 8px 12px;
+    border-radius: 20px; /* Pill shape */
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #495057;
+}
+.btn-remove-inline {
+    background: none;
+    border: none;
+    color: #dc3545; /* Red for remove */
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+.btn-remove-inline:hover {
+    opacity: 1;
+}
+
+/* Logo Preview */
+.logo-preview {
+    max-width: 120px; /* Slightly larger preview */
+    max-height: 120px;
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+    object-fit: contain;
+    background-color: #fcfcfc;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px; /* Increased space */
+    border-top: 1px solid #f0f0f0;
+    padding-top: 25px;
+    justify-content: flex-end; /* Buttons right-aligned */
+}
+
+/* Disabled button style */
+.btn-save:disabled, .btn-cancel:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}

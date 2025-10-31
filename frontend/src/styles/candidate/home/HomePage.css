@@ -1,0 +1,63 @@
+
+.top-navbar-sticky-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000; 
+  background-color: white; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 2. SearchBar ko scroll karne par Navbar ke neeche fix karein */
+.search-bar-sticky-container {
+  position: sticky;
+  /* APNE NAVBAR KI HEIGHT YAHAN DAALEIN (e.g., 60px) */
+  top: 50px; 
+
+  z-index: 999; /* Navbar se neeche, baaki sab se upar */
+  background-color: white;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease;
+}
+
+
+/* --- Placeholder Component Styles (for demonstration) --- */
+/* Inhe aap apne asli component styles se badal sakte hain */
+
+.placeholder-nav {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.placeholder-hero {
+  height: 400px;
+  background-color: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-search {
+  padding: 20px;
+  background-color: #e9ecef;
+  text-align: center;
+}
+
+.placeholder-section {
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.placeholder-footer {
+  padding: 40px;
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+}
+

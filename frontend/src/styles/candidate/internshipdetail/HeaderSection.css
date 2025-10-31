@@ -1,0 +1,53 @@
+.header-section-container {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-left: 5px solid #e10098; /* Accent line */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.header-logo {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.header-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+.header-company {
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+  margin: 0 0 10px 0;
+}
+
+.header-update-date {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+}
