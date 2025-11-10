@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from 'axios';
-import { AuthContext } from '../../../context/AuthContext'; // Path check karein
+import { AuthContext } from '../../../context/AuthContext';
 import InternshipCard from "../common/InternshipCard";
 import "../../../styles/candidate/home/LatestInternships.css";
 import { Link } from "react-router-dom";
@@ -12,23 +12,24 @@ const LatestInternships = () => {
     const [savedInternshipIds, setSavedInternshipIds] = useState(new Set());
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { authData } = useContext(AuthContext); // ✅ Auth data
-    const token = authData?.token || localStorage.getItem('authToken'); // ✅ Token lein
+    const { authData } = useContext(AuthContext); 
+    const token = authData?.token; // Token context se lein
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             setError(null);
-            // ✅ Token ko header mein set karein (AuthContext ke load hone ka wait karein)
-            if (token && !axios.defaults.headers.common['Authorization']) {
-                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+            const headers = {};
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
             }
 
             try {
-                // ✅ Sahi endpoint /api/internships
-                const internshipsPromise = axios.get(`${API_URL}/internships`);
+                // API pehle se hi sorted data degi (latest pehle)
+                const internshipsPromise = axios.get(`${API_URL}/internships`, { headers });
                 const savedPromise = token
-                    ? axios.get(`${API_URL}/candidate/saved-internships`)
+                    ? axios.get(`${API_URL}/candidate/saved-internships`, { headers })
                     : Promise.resolve({ data: [] });
 
                 const [internRes, savedRes] = await Promise.all([internshipsPromise, savedPromise]);
@@ -36,10 +37,11 @@ const LatestInternships = () => {
                 const allInternships = internRes.data || [];
                 const savedData = savedRes.data || [];
 
-                const savedIds = new Set(savedData.map(item => item.id));
+                const savedIds = new Set(savedData.map(item => String(item.id)));
                 setSavedInternshipIds(savedIds);
-
-                setInternships(allInternships.slice(0, 12)); // ✅ 12 internships dikhayein
+                
+                // ✅ FIX: Frontend par sorting ki zaroorat nahi, seedha slice karein
+                setInternships(allInternships.slice(0, 12)); 
             } catch (err) {
                 console.error("Failed to load data:", err);
                 setError(err.response?.data?.message || "Could not load internships.");
@@ -51,20 +53,24 @@ const LatestInternships = () => {
         };
 
         fetchData();
-    }, [token]); // ✅ token par depend karein
+    }, [token]); 
 
     const handleSaveToggle = async (internshipId, currentIsSaved) => {
-        // ... (save logic same rahega) ...
         if (!token) {
              alert("Please log in to save/unsave internships.");
              return;
         }
+        
+        const idString = String(internshipId);
+
         try {
-            await axios.post(`${API_URL}/profile/save/${internshipId}`);
+            await axios.post(`${API_URL}/profile/save/${idString}`, {}, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
             setSavedInternshipIds(prevIds => {
                 const newIds = new Set(prevIds);
-                if (currentIsSaved) { newIds.delete(internshipId); }
-                else { newIds.add(internshipId); }
+                if (currentIsSaved) { newIds.delete(idString); }
+                else { newIds.add(idString); }
                 return newIds;
             });
         } catch (err) {
@@ -75,7 +81,7 @@ const LatestInternships = () => {
 
 
     if (loading) { return <div className="latest-internships" style={{ padding: "20px" }}>Loading latest internships...</div>; }
-    if (error) { return <div className="latest-internships error-message" style={{ padding: "20px", color: 'red' }}>{error}</div>; } // ✅ Error red mein
+    if (error) { return <div className="latest-internships error-message" style={{ padding: "20px", color: 'red' }}>{error}</div>; } 
 
     return (
         <div className="latest-internships">
@@ -83,10 +89,10 @@ const LatestInternships = () => {
                 <h2 className="section-title">Latest Internships</h2>
                 <Link to="/internships" className="view-all-link">View All</Link>
             </div>
-            <div className="internships-grid large-grid"> {/* Grid class update karein agar 12 ke liye alag style hai */}
+            <div className="internships-grid large-grid"> 
                 {internships.length > 0 ? (
                     internships.map((internship) => {
-                        const isSaved = savedInternshipIds.has(internship.id);
+                        const isSaved = savedInternshipIds.has(String(internship.id));
                         return (
                             <InternshipCard
                                 key={internship.id}

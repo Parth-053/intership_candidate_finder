@@ -1,0 +1,44 @@
+/* --- Common Auth Styles --- */
+.auth-body { min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-sizing: border-box; }
+.container { display: flex; max-width: 1000px; width: 100%; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); }
+.left-panel { flex: 1; color: white; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+.left-panel h1 { font-size: 2.5rem; margin-bottom: 20px; }
+.left-panel p { font-size: 1.1rem; line-height: 1.6; }
+.right-panel { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+.logo { text-align: center; margin-bottom: 30px; }
+.logo h2 { font-size: 2rem; }
+.tabs { display: flex; margin-bottom: 30px; border-bottom: 1px solid #eee; }
+.tab { padding: 10px 20px; cursor: pointer; font-weight: 600; color: #777; transition: all 0.3s; }
+.form-container { display: none; }
+.form-container.active { display: block; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+.form-group input { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; transition: all 0.3s; box-sizing: border-box; }
+.btn { width: 100%; padding: 12px; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.btn:disabled { background: #cccccc; cursor: not-allowed; opacity: 0.7; }
+.auth-alert { padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 0.95rem; }
+.auth-alert.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.auth-alert.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+
+/* --- Candidate Theme --- */
+.candidate-auth { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); }
+.candidate-auth .left-panel { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); }
+.candidate-auth .logo h2 { color: #2575fc; }
+.candidate-auth .logo span { color: #6a11cb; }
+.candidate-auth .tab.active { color: #2575fc; border-bottom: 3px solid #2575fc; }
+.candidate-auth .form-group input:focus { border-color: #2575fc; box-shadow: 0 0 0 2px rgba(37, 117, 252, 0.2); outline: none; }
+.candidate-auth .btn { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); }
+
+/* --- Recruiter Theme --- */
+.recruiter-auth { background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%); }
+.recruiter-auth .left-panel { background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%); }
+.recruiter-auth .logo h2 { color: #ff7e5f; }
+.recruiter-auth .logo span { color: #feb47b; }
+.recruiter-auth .tab.active { color: #ff7e5f; border-bottom: 3px solid #ff7e5f; }
+.recruiter-auth .form-group input:focus { border-color: #ff7e5f; box-shadow: 0 0 0 2px rgba(255, 126, 95, 0.2); outline: none; }
+.recruiter-auth .btn { background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%); }
+
+@media (max-width: 768px) {
+    .container { flex-direction: column; max-width: 500px; }
+    .left-panel { padding: 30px; }
+}

@@ -1,186 +1,162 @@
-const fs = require('fs');
-const path = require('path');
+const { db } = require('../firebase-admin.js');
+const { FieldValue } = require('firebase-admin/firestore');
 
-// Updated data paths
-const internshipsPath = path.join(__dirname, '..', 'data', 'available_internships.json');
-const recruitersPath = path.join(__dirname, '..', 'data', 'recruiters.json');
-
-// Helper functions
-const readData = (filePath) => {
+class InternshipController {
+  
+  // PUBLIC - Get all internships
+  async getAllInternships(req, res) {
     try {
-        if (!fs.existsSync(filePath)) return [];
-        const data = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) { console.error(`Read Error ${filePath}:`, error); return []; }
-};
-const writeData = (filePath, data) => {
-    try {
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
-    } catch (error) { console.error(`Write Error ${filePath}:`, error); }
-};
-
-// PUBLIC - Get all internships (SORTED BY updatedOn)
-exports.getAllInternships = (req, res) => {
-    try {
-        let internships = readData(internshipsPath);
-        // Sort by 'updatedOn' date, newest first
-        internships.sort((a, b) => {
-            const dateA = a.updatedOn ? new Date(a.updatedOn) : new Date(0);
-            const dateB = b.updatedOn ? new Date(b.updatedOn) : new Date(0);
-            return dateB - dateA; // Sort descending
+        // ✅ FIX: Internships ko 'updatedOn' date ke hisaab se sort karein (latest pehle)
+        const snapshot = await db.collection('internships')
+                                 .where('status', '==', 'Active')
+                                 .orderBy('updatedOn', 'desc') // <-- YEH NAYI LINE ADD KI GAYI HAI
+                                 .get();
+        
+        const internships = [];
+        snapshot.forEach(doc => {
+            internships.push({ id: doc.id, ...doc.data() });
         });
+        
         res.status(200).json(internships);
     } catch (error) {
-        console.error("Error fetching or sorting internships:", error);
+        console.error("Error fetching internships:", error);
         res.status(500).json({ message: "Server error fetching internships." });
     }
-};
+  }
 
-// PUBLIC - Get single internship by ID
-exports.getInternshipById = (req, res) => {
+  // ... (Baaki saare functions waise hi rahenge) ...
+
+  // PUBLIC - Get single internship by ID
+  async getInternshipById(req, res) {
     try {
-        let internships = readData(internshipsPath);
-        const internship = internships.find(i => i.id === parseInt(req.params.id, 10));
-        if (!internship) {
+        const doc = await db.collection('internships').doc(String(req.params.id)).get(); // ID ko string mein badlein
+        if (!doc.exists) {
             return res.status(404).json({ message: "Internship not found." });
         }
-        res.status(200).json(internship);
+        res.status(200).json({ id: doc.id, ...doc.data() });
     } catch (error) {
         res.status(500).json({ message: "Server error fetching internship." });
     }
-};
+  }
 
-// ✅ YEH FUNCTION MISSING THA
-// PROTECTED - RECRUITER - Get all postings (by Company Name)
-exports.getMyPostings = (req, res) => {
+  // PROTECTED - RECRUITER - Get all postings (by Recruiter ID)
+  async getMyPostings(req, res) {
     try {
-        const recruiterId = req.user.id;
-        let allInternships = readData(internshipsPath);
-        let recruiters = readData(recruitersPath); 
+        const recruiterId = req.user.id; 
 
-        const recruiter = recruiters.find(r => r.id === recruiterId);
-        if (!recruiter) {
-            return res.status(404).json({ message: "Recruiter profile not found." });
-        }
-        const recruiterCompany = recruiter.company;
+        // ✅ FIX: Is page ko bhi 'updatedOn' se sort kar dein
+        const snapshot = await db.collection('internships')
+                                 .where('recruiterId', '==', recruiterId)
+                                 .orderBy('updatedOn', 'desc') // <-- YEH NAYI LINE ADD KI GAYI HAI
+                                 .get();
 
-        // Filter by COMPANY NAME
-        const myPostings = allInternships.filter(internship => internship.company === recruiterCompany);
-        
-        myPostings.sort((a, b) => {
-             const dateA = a.updatedOn ? new Date(a.updatedOn) : new Date(0);
-             const dateB = b.updatedOn ? new Date(b.updatedOn) : new Date(0);
-             return dateB - dateA;
+        const myPostings = [];
+        snapshot.forEach(doc => {
+            myPostings.push({ id: doc.id, ...doc.data() });
         });
+        
         res.status(200).json(myPostings);
     } catch (error) {
         console.error("Error fetching my postings:", error);
         res.status(500).json({ message: "Server error fetching postings." });
     }
-};
+  }
 
-// ✅ YEH FUNCTION MISSING THA
-// PROTECTED - RECRUITER - Post a new internship
-exports.postInternship = (req, res) => {
+  // PROTECTED - RECRUITER - Post a new internship
+  async postInternship(req, res) {
     try {
         const recruiterId = req.user.id;
-        let internships = readData(internshipsPath);
-        let recruiters = readData(recruitersPath);
-        const recruiter = recruiters.find(r => r.id === recruiterId);
-        if (!recruiter) {
-             return res.status(404).json({ message: "Recruiter profile not found." });
-        }
-        const maxId = internships.reduce((max, i) => i.id > max ? i.id : max, 0);
-        const newId = maxId + 1;
+        const recruiter = req.user; 
+
         const newInternship = {
-            id: newId,
-            title: req.body.title || "Default Title",
+            ...req.body,
             company: recruiter.company,
-            location: req.body.location || "Default Location",
             logo: recruiter.companyLogo,
-            postedOn: new Date().toISOString(), 
+            companyDescription: recruiter.description || "",
+            recruiterId: recruiterId,
+            status: "Active", // Default status
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
             updatedOn: new Date().toISOString(), 
-            applicationDeadline: req.body.applicationDeadline || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-            companyDescription: recruiter.description,
-            responsibilities: req.body.responsibilities || [],
-            requirements: req.body.requirements || [],
-            skillsAndQualifications: req.body.skillsAndQualifications || [],
-            duration: req.body.duration || "N/A",
-            stipend: req.body.stipend || { min: 0, max: 0, currency: "₹", interval: "/Month" },
-            workDetails: req.body.workDetails || { workingDays: "5 Days", schedule: "Flexible" },
-            internshipType: req.body.internshipType || { type: "Hybrid", timing: "Part Time" },
-            perks: req.body.perks || [],
             stats: { applied: 0, openings: req.body.openings || 1, impressions: 0 },
-            eligibility: req.body.eligibility || ["Undergraduate", "Postgraduate"],
-            recruiterId: recruiterId, // Store string ID
-            status: "Active"
         };
-        internships.unshift(newInternship);
-        writeData(internshipsPath, internships);
-        res.status(201).json({ message: "Internship posted successfully", internship: newInternship });
+        
+        const docRef = await db.collection('internships').add(newInternship);
+        
+        const newId = docRef.id;
+        await db.collection('internships').doc(newId).set({ ...newInternship, id: newId });
+
+        res.status(201).json({ 
+            message: "Internship posted successfully", 
+            internship: { id: newId, ...newInternship } 
+        });
     } catch (error) {
         console.error("Post Internship Error:", error)
         res.status(500).json({ message: "Server error while posting internship." });
     }
-};
+  }
 
-// ✅ YEH FUNCTION MISSING THA
-// PROTECTED - RECRUITER - Update an internship
-exports.updateInternship = (req, res) => {
+  // PROTECTED - RECRUITER - Update an internship
+  async updateInternship(req, res) {
     try {
+        const internshipId = String(req.params.id); // ID ko string mein badlein
         const recruiterId = req.user.id;
-        const internshipId = parseInt(req.params.id, 10);
-        let internships = readData(internshipsPath);
-        const index = internships.findIndex(i => i.id === internshipId);
-        if (index === -1) { return res.status(404).json({ message: "Internship not found." }); }
         
-        const recruiter = readData(recruitersPath).find(r => r.id === recruiterId);
-        if (internships[index].recruiterId !== recruiterId && internships[index].company !== recruiter.company) { 
-            return res.status(403).json({ message: "Not authorized." }); 
-        }
-
-        const updatedInternship = {
-            ...internships[index], ...req.body,
-            stipend: { ...internships[index].stipend, ...req.body.stipend },
-            workDetails: { ...internships[index].workDetails, ...req.body.workDetails },
-            internshipType: { ...internships[index].internshipType, ...req.body.internshipType },
-            stats: { ...internships[index].stats, ...req.body.stats },
-            updatedOn: new Date().toISOString(), 
-            id: internshipId, 
-            recruiterId: recruiterId
+        const updateData = {
+            ...req.body,
+            updatedAt: new Date().toISOString(),
+            updatedOn: new Date().toISOString(), // updatedOn field bhi update karein
         };
-        if (internships[index].postedOn) {
-             updatedInternship.postedOn = internships[index].postedOn;
-        }
-        internships[index] = updatedInternship;
-        writeData(internshipsPath, internships);
-        res.status(200).json({ message: "Internship updated", internship: updatedInternship });
-    } catch (error) {
-         console.error("Update Internship Error:", error)
-        res.status(500).json({ message: "Server error while updating." });
-    }
-};
 
-// ✅ YEH FUNCTION MISSING THA
-// PROTECTED - RECRUITER - Delete an internship
-exports.deleteInternship = (req, res) => {
-    try {
-        const recruiterId = req.user.id;
-        const internshipId = parseInt(req.params.id, 10);
-        let internships = readData(internshipsPath);
-        const index = internships.findIndex(i => i.id === internshipId);
-        if (index === -1) { return res.status(404).json({ message: "Internship not found." }); }
-        
-        const recruiter = readData(recruitersPath).find(r => r.id === recruiterId);
-         if (internships[index].recruiterId !== recruiterId && internships[index].company !== recruiter.company) { 
-            return res.status(403).json({ message: "Not authorized." }); 
+        const docRef = db.collection('internships').doc(internshipId);
+        const doc = await docRef.get();
+
+        if (!doc.exists) {
+            return res.status(404).json({ message: "Internship not found." });
         }
         
-        internships.splice(index, 1);
-        writeData(internshipsPath, internships);
-        res.status(200).json({ message: "Internship deleted." });
+        if (doc.data().recruiterId !== recruiterId) {
+             return res.status(403).json({ message: "Access denied. You can only edit your own postings." });
+        }
+
+        await docRef.update(updateData);
+        
+        res.status(200).json({ 
+            message: "Internship updated successfully"
+        });
     } catch (error) {
-         console.error("Delete Internship Error:", error)
-        res.status(500).json({ message: "Server error while deleting." });
+        console.error("Update Internship Error:", error)
+        res.status(500).json({ message: "Server error while updating internship." });
     }
-};
+  }
+
+  // PROTECTED - RECRUITTER - Delete an internship
+  async deleteInternship(req, res) {
+     try {
+        const internshipId = String(req.params.id); // ID ko string mein badlein
+        const recruiterId = req.user.id;
+
+        const docRef = db.collection('internships').doc(internshipId);
+        const doc = await docRef.get();
+
+        if (!doc.exists) {
+            return res.status(404).json({ message: "Internship not found." });
+        }
+        
+        if (doc.data().recruiterId !== recruiterId) {
+             return res.status(403).json({ message: "Access denied. You can only delete your own postings." });
+        }
+
+        await docRef.delete();
+        
+        res.status(200).json({ 
+            message: "Internship deleted successfully"
+        });
+    } catch (error) {
+        console.error("Delete Internship Error:", error)
+        res.status(500).json({ message: "Server error while deleting internship." });
+    }
+  }
+}
+
+module.exports = new InternshipController();

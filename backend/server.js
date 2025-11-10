@@ -1,7 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path'); // ✅ Import path module
+const path = require('path');
+
+require('./firebase-admin'); 
+console.log('>>> Firebase Admin SDK Initialized');
 
 // Routes ko import karna
 const authRoutes = require('./routes/authRoutes');
@@ -19,11 +22,9 @@ app.use(cors()); // CORS ko enable karna
 app.use(express.json()); // Request body se JSON parse karna
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ Serve static files from the 'public' directory within the server folder
-// Make sure you create a 'public' folder in your 'server' directory
-// and place your 'icons' folder inside it (e.g., /server/public/icons/google.png)
+// ✅ Serve static files (jaise company logos)
 app.use(express.static(path.join(__dirname, 'public')));
-console.log('>>> server.js: Serving static files from /public directory'); // Optional log
+console.log('>>> server.js: Serving static files from /public directory');
 
 // API Endpoints ko register karna
 app.use('/api/auth', authRoutes);

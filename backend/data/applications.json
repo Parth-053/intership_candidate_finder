@@ -1,5 +1,13 @@
 [
   {
+    "id": "app_1762317876580",
+    "candidateId": "1",
+    "internshipId": 2,
+    "recruiterId": 1,
+    "status": "Applied",
+    "appliedOn": "2025-11-05T04:44:36.581Z"
+  },
+  {
     "id": "app_1730000000001",
     "candidateId": "1",
     "internshipId": 1,

@@ -1,158 +1,61 @@
-const fs = require('fs');
-const path = require('path');
-// const bcrypt = require('bcryptjs'); // <- Hata diya gaya
-const jwt = require('jsonwebtoken');
+//
+const { db } = require('../firebase-admin');
 
-// Data file paths (same as before)
-const candidatesPath = path.join(__dirname, '..', 'data', 'candidates.json');
-const recruitersPath = path.join(__dirname, '..', 'data', 'recruiters.json');
-
-// Helper functions (same as before)
-const readData = (filePath) => {
+class AuthController {
+  
+  /**
+   * @desc    Register user details in Firestore (AFTER Firebase Auth)
+   * @route   POST /api/auth/register
+   */
+  async registerUser(req, res) {
     try {
-        if (!fs.existsSync(filePath)) return [];
-        const data = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) { console.error(`Read Error ${filePath}:`, error); return []; }
-};
-const writeData = (filePath, data) => {
-    try {
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
-    } catch (error) { console.error(`Write Error ${filePath}:`, error); }
-};
+        // user object (jismein uid, email, role hai) frontend se aayega
+        const { uid, email, name, role, company, position } = req.body;
 
-// Register User (without hashing)
-exports.registerUser = async (req, res) => { // Removed 'async' as bcrypt is gone
-    try {
-        const { name, email, password, role, company, position, companyLogo, description, website, locations } = req.body;
-
-        if (!name || !email || !password || !role) {
-            return res.status(400).json({ message: "Name, Email, Password, and Role are required." });
-        }
-        
-        if (!['candidate', 'recruiter'].includes(role)) {
-             return res.status(400).json({ message: "Invalid role specified." });
+        if (!uid || !email || !name || !role) {
+            return res.status(400).json({ message: "Missing required fields." });
         }
 
-        const userFilePath = (role === 'candidate') ? candidatesPath : recruitersPath;
-        let users = readData(userFilePath);
+        let collectionName = '';
+        let userData = {};
 
-        if (users.find(user => user.email === email)) {
-            return res.status(400).json({ message: `User with this email already exists as a ${role}.` });
-        }
-        
-        const otherFilePath = (role === 'candidate') ? recruitersPath : candidatesPath;
-        let otherUsers = readData(otherFilePath);
-         if (otherUsers.find(user => user.email === email)) {
-            return res.status(400).json({ message: `User with this email already exists as a ${(role === 'candidate' ? 'recruiter' : 'candidate')}.` });
-        }
-
-        // --- Hashing Hata Diya Gaya ---
-        // const salt = await bcrypt.genSalt(10);
-        // const hashedPassword = await bcrypt.hash(password, salt);
-        const plainPassword = password; // Store password directly
-        // -----------------------------
-
-        const userId = `${role}_${new Date().getTime()}`;
-
-        let newUser = {
-            id: userId,
-            name,
-            email,
-            password: plainPassword, // Store plain password
-            role,
-            createdAt: new Date().toISOString(),
-        };
-
-        // Add role-specific fields (same as before)
         if (role === 'candidate') {
-            newUser = { /* ... candidate fields ... */ }; // Fill candidate fields as before
-             newUser = {
-                ...newUser,
-                headline: "",
-                location: "",
-                skills: [],
-                savedInternships: [],
+            collectionName = 'candidates';
+            userData = {
+                id: uid, name, email, role, createdAt: new Date().toISOString(),
+                headline: "", location: "", skills: [], savedInternships: [],
                 profile: { resumeUrl: "" }
             };
-        } else { // Recruiter
-            newUser = { /* ... recruiter fields ... */ }; // Fill recruiter fields as before
-             newUser = {
-                ...newUser,
-                company: company || "",
-                position: position || "",
-                companyLogo: companyLogo || "",
-                description: description || "",
-                website: website || "",
-                locations: locations || [],
-                profile: {}
+        } else if (role === 'recruiter') {
+            collectionName = 'recruiters';
+            userData = {
+                id: uid, name, email, role, company, position, createdAt: new Date().toISOString(),
+                companyLogo: "/icons/default-logo.png", description: "",
+                website: "", locations: []
             };
-        }
-
-        users.push(newUser);
-        writeData(userFilePath, users);
-        res.status(201).json({ message: `${role.charAt(0).toUpperCase() + role.slice(1)} registered successfully.` });
-
-    } catch (error) {
-        console.error("Register Error:", error);
-        res.status(500).json({ message: "Server error during registration." });
-    }
-};
-
-// Login User (without hashing comparison)
-exports.loginUser = async (req, res) => { // Removed 'async' as bcrypt compare is gone
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ message: "Email and Password are required." });
-        }
-
-        let user = null;
-        let role = null;
-
-        // Find user (same as before)
-        let candidates = readData(candidatesPath);
-        user = candidates.find(u => u.email === email);
-        if (user) {
-            role = 'candidate';
         } else {
-            let recruiters = readData(recruitersPath);
-            user = recruiters.find(u => u.email === email);
-            if (user) {
-                role = 'recruiter';
-            }
+            return res.status(400).json({ message: "Invalid role." });
         }
 
-        if (!user) {
-            return res.status(400).json({ message: "Invalid credentials (user not found)." });
-        }
+        // ✅ Firestore mein data save karein (UID ko document ID banayein)
+        await db.collection(collectionName).doc(uid).set(userData);
 
-        // --- Hashing Comparison Hata Diya Gaya ---
-        // const isMatch = await bcrypt.compare(password, user.password);
-        const isMatch = (password === user.password); // Direct comparison
-        // ----------------------------------------
+        res.status(201).json({ message: "User profile created in Firestore.", user: userData });
 
-        if (!isMatch) {
-            return res.status(400).json({ message: "Invalid credentials (password mismatch)." });
-        }
-
-        const payload = { user: { id: user.id, role: user.role } };
-
-        jwt.sign(
-            payload,
-            process.env.JWT_SECRET,
-            { expiresIn: '30d' },
-            (err, token) => {
-                if (err) throw err;
-                const { password, ...userData } = user; // Exclude password from response
-                res.status(200).json({
-                    token,
-                    user: userData
-                });
-            }
-        );
     } catch (error) {
-        console.error("Login Error:", error);
-        res.status(500).json({ message: "Server error during login." });
+        console.error("Firestore Register Error:", error);
+        res.status(500).json({ message: "Server error creating user profile." });
     }
-};
+  }
+
+  /**
+   * @desc    Login (Ab zaroorat nahi)
+   */
+  async loginUser(req, res) {
+    // Yeh logic ab frontend se seedha Firebase Authentication handle karega
+    // Is backend endpoint ki ab zaroorat nahi hai
+    res.status(400).json({ message: "Login is handled by Firebase Client SDK. This endpoint is deprecated." });
+  }
+}
+
+module.exports = new AuthController();

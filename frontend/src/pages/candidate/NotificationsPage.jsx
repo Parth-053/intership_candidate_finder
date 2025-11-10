@@ -3,13 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import TopNavbar from '../../components/candidate/common/TopNavbar';
-// Path ko correct kiya (assuming common styles)
 import '../../styles/candidate/MyApplicationsPage.css'; 
 import '../../styles/candidate/dashboard/Notifications.css';
 
 const API_URL = 'http://localhost:5000/api';
 
-// Simple relative time function
 const timeAgo = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -35,6 +33,7 @@ const NotificationsPage = () => {
     const { authData } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    // Data fetch karne wala useEffect waisa hi rahega
     useEffect(() => {
         const fetchNotifications = async () => {
             const token = authData?.token || localStorage.getItem('authToken');
@@ -49,6 +48,7 @@ const NotificationsPage = () => {
             try {
                 setLoading(true);
                 setError(null);
+                // Yeh ab 'read' status database se laayega
                 const response = await axios.get(`${API_URL}/candidate/notifications`);
                 setNotifications(response.data || []);
             } catch (err) {
@@ -58,12 +58,43 @@ const NotificationsPage = () => {
                 setLoading(false);
             }
         };
-        fetchNotifications();
+        
+        if (authData.token) { // Token milne ke baad hi fetch karein
+           fetchNotifications();
+        }
     }, [authData?.token]);
 
-    const handleNotificationClick = (notifId) => {
-        console.log("Marking notification as read:", notifId);
-        // TODO: Add API call to mark notification as read
+    // ✅ Notification click ko handle karne wala naya function
+    const handleNotificationClick = async (notifId) => {
+        
+        // Check karein ki notification pehle se read toh nahi hai
+        const currentNotif = notifications.find(n => n.id === notifId);
+        if (currentNotif.read) {
+            console.log("Already read");
+            return; // Agar pehle se read hai toh kuch na karein
+        }
+        
+        // 1. UI ko turant update karein (Optimistic Update)
+        setNotifications(prevNotifs => 
+            prevNotifs.map(notif => 
+                notif.id === notifId ? { ...notif, read: true } : notif
+            )
+        );
+
+        // 2. Backend API ko call karein
+        try {
+            await axios.patch(`${API_URL}/candidate/notifications/${notifId}/read`);
+            // Success! Kuch karne ki zaroorat nahi kyunki UI pehle hi update ho chuka hai.
+        } catch (err) {
+            console.error("Failed to mark notification as read:", err);
+            // 3. Agar API call fail ho, toh UI ko wapas purani state mein le aayein (Rollback)
+            alert("Error updating notification status. Please try again.");
+            setNotifications(prevNotifs => 
+                prevNotifs.map(notif => 
+                    notif.id === notifId ? { ...notif, read: false } : notif
+                )
+            );
+        }
     };
 
     return (
@@ -88,7 +119,7 @@ const NotificationsPage = () => {
                                     <li 
                                         key={notif.id} 
                                         className={`notification-item modern ${!notif.read ? 'unread' : ''}`}
-                                        onClick={() => handleNotificationClick(notif.id)}
+                                        onClick={() => handleNotificationClick(notif.id)} // ✅ Updated handler call
                                     >
                                         <span className={`status-indicator ${!notif.read ? 'unread' : ''}`}></span>
                                         <div className="notif-content">
@@ -100,12 +131,11 @@ const NotificationsPage = () => {
                             </ul>
                         ) : (
                             <p className="empty-state">No notifications found.</p>
-                        ) 
-                    } {/* ✅ FIXED: Extra ')' bracket removed from here */}
-                </div>
-            )} {/* <-- Closing parenthesis moved here */}
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
-    </div>
     );
 };
 

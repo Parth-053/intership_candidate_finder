@@ -1,62 +1,67 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+// 'db', 'doc', 'getDoc' ko hata diya gaya hai, kyunki backend call use hogi
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export const AuthContext = createContext();
 
-const API_URL = 'http://localhost:5000/api'; // Backend API URL
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
+
+// Backend API URL (Aapke Node.js server ka)
+const API_URL = 'http://localhost:5000/api';
 
 export const AuthProvider = ({ children }) => {
-    const [authData, setAuthDataState] = useState({ token: null, user: null });
-    const [loading, setLoading] = useState(true); // App load state
+    const [authData, setAuthData] = useState({ token: null, user: null, loading: true });
 
-    // ✅ Yeh hook App load hone par token check karega
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            // Token ko axios defaults mein set karein
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            
-            // Profile fetch karke token verify karein
-            axios.get(`${API_URL}/profile/me`)
-                .then(res => {
-                    // Token valid hai, user data set karein
-                    setAuthDataState({ token, user: res.data });
-                    setLoading(false);
-                })
-                .catch(() => {
-                    // Token invalid hai, clear karein
-                    localStorage.removeItem('authToken');
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // User logged in hai
+                const token = await user.getIdToken();
+                
+                // Step 1: Token ko Axios ke global header mein set karein
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+                try {
+                    // Step 2: Client-side DB call ki jagah, backend ko call karein
+                    // Yeh /api/profile/me route auth.mw.js se user ka data (role ke saath) laayega
+                    const response = await axios.get(`${API_URL}/profile/me`);
+                    
+                    setAuthData({
+                        token: token,
+                        user: response.data, // Pura user object backend se
+                        loading: false
+                    });
+
+                } catch (error) {
+                    // Agar profile fetch fail ho (kisi bhi reason se)
+                    console.error("Failed to fetch user profile from backend", error);
+                    auth.signOut(); // User ko logout kar dein
                     delete axios.defaults.headers.common['Authorization'];
-                    setAuthDataState({ token: null, user: null });
-                    setLoading(false);
-                });
-        } else {
-            setLoading(false); // Koi token nahi hai
-        }
-    }, []); // Sirf ek baar app load hone par chalega
+                    setAuthData({ token: null, user: null, loading: false });
+                }
 
-    // Login function
-    const setAuthData = ({ token, user }) => {
-        localStorage.setItem('authToken', token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        setAuthDataState({ token, user });
-    };
+            } else {
+                // User logged out hai
+                delete axios.defaults.headers.common['Authorization'];
+                setAuthData({ token: null, user: null, loading: false });
+            }
+        });
+        return () => unsubscribe();
+    }, []);
 
-    // Logout function
     const logout = () => {
-        localStorage.removeItem('authToken');
-        delete axios.defaults.headers.common['Authorization'];
-        setAuthDataState({ token: null, user: null });
+        return auth.signOut(); // Firebase se sign out
     };
 
-    // Jab tak token verify na ho, app na dikhayein
-    if (loading) {
-        return <div style={{textAlign: 'center', padding: '50px', fontSize: '1.2em'}}>Loading Application...</div>;
-    }
+    const value = { authData, logout };
 
     return (
-        <AuthContext.Provider value={{ authData, setAuthData, logout, loading }}>
-            {children}
+        <AuthContext.Provider value={value}>
+            {!authData.loading && children}
         </AuthContext.Provider>
     );
 };

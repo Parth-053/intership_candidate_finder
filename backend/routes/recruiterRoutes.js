@@ -1,26 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const appCtrl = require('../controllers/application.ctrl');
-const dashboardCtrl = require('../controllers/recruiterDashboard.ctrl');
-const internshipCtrl = require('../controllers/internship.ctrl'); // ✅ YEH LINE ADD KI GAYI HAI
-const { isAuthenticated, isRecruiter } = require('../middleware/auth.mw');
+// Sabhi require statements mein .js add karein
+const appCtrl = require('../controllers/application.ctrl.js');
+const dashboardCtrl = require('../controllers/recruiterDashboard.ctrl.js');
+const internshipCtrl = require('../controllers/internship.ctrl.js');
+const { isAuthenticated, isRecruiter } = require('../middleware/auth.mw.js');
 
-// Saare routes protected hain, sirf recruiter ke liye
-
-// GET /api/recruiter/dashboard/stats
+// Dashboard
 router.get('/dashboard/stats', isAuthenticated, isRecruiter, dashboardCtrl.getDashboardStats);
-
-// GET /api/recruiter/dashboard/recent-applicants
 router.get('/dashboard/recent-applicants', isAuthenticated, isRecruiter, dashboardCtrl.getRecentApplicants);
 
-// GET /api/recruiter/applicants/:internshipId (Ek job ke saare applicants)
+// Applicants
 router.get('/applicants/:internshipId', isAuthenticated, isRecruiter, appCtrl.getApplicantsForJob);
-
-// PATCH /api/recruiter/applications/:applicationId/status (Status update karna)
 router.patch('/applications/:applicationId/status', isAuthenticated, isRecruiter, appCtrl.updateApplicationStatus);
 
-// ✅ YEH ROUTE ADD KIYA GAYA HAI
-// GET /api/recruiter/my-postings (Recruiter ki saari postings fetch karna)
+// Postings
 router.get('/my-postings', isAuthenticated, isRecruiter, internshipCtrl.getMyPostings);
 
 module.exports = router;

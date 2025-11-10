@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/auth.ctrl');
+// Controller ko require karte waqt .js add karein
+const authController = require('../controllers/auth.ctrl.js');
 
-// POST /api/auth/register
 router.post('/register', authController.registerUser);
-
-// POST /api/auth/login
-router.post('/login', authController.loginUser);
 
 module.exports = router;

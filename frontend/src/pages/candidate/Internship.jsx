@@ -24,16 +24,17 @@ const Internship = () => {
     const [error, setError] = useState(null);
     const [searchParams] = useSearchParams();
 
-    // ✅ FIXED: Sahi API endpoints use karein
+    // ✅ FIXED: Sahi API endpoints use karein (Aapka bataya gaya code)
     useEffect(() => {
         const fetchFilterOptions = async () => {
              setError(null);
              setIsReady(false);
             try {
-                const [catRes, compRes, internRes] = await Promise.all([
-                    axios.get(`${API_URL}/data/categories`), // /api/data/categories
-                    axios.get(`${API_URL}/data/companies`),  // /api/data/companies
-                    axios.get(`${API_URL}/internships`)      // /api/internships
+                // ✅ '/internships' ki jagah '/data/locations' ko call karein
+                const [catRes, compRes, locRes] = await Promise.all([
+                    axios.get(`${API_URL}/data/categories`),
+                    axios.get(`${API_URL}/data/companies`),
+                    axios.get(`${API_URL}/data/locations`) // <-- YEH CHANGE HUA HAI
                 ]);
 
                 const categoryTitles = Array.isArray(catRes.data) ? catRes.data.map(cat => cat.title).sort() : [];
@@ -42,10 +43,9 @@ const Internship = () => {
                 const companyNames = Array.isArray(compRes.data) ? compRes.data.map(comp => comp.name).sort() : [];
                 setAllCompanies(companyNames);
 
-                const internshipData = Array.isArray(internRes.data) ? internRes.data : [];
-                const locationSet = new Set();
-                internshipData.forEach(internship => { if (internship.location) locationSet.add(internship.location); });
-                setAllLocations(Array.from(locationSet).sort());
+                // ✅ Ab humein internships data se locations extract nahi karni
+                const locations = Array.isArray(locRes.data) ? locRes.data.sort() : [];
+                setAllLocations(locations);
 
                 setIsReady(true);
             } catch (err) {
@@ -55,9 +55,9 @@ const Internship = () => {
             }
         };
         fetchFilterOptions();
-    }, []);
+    }, []); // Yeh dependency array sahi hai (sirf ek baar run hoga)
 
-    // ... (baaki sabhi functions: handleSearch, handleFilterChange, removeFilter - inmein changes nahi) ...
+    // ... (baaki sabhi functions: handleSearch, handleFilterChange, removeFilter) ...
 
     const handleSearch = useCallback((queryToSearch = searchQuery) => {
         if (!isReady) return;
